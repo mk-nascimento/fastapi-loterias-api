@@ -1,0 +1,5 @@
+{
+	"cSpell.language": "en,pt-BR",
+	"extensions.ignoreRecommendations": true,
+	"[python]": { "editor.defaultFormatter": "charliermarsh.ruff" }
+}

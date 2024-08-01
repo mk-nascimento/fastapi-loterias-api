@@ -1,0 +1,33 @@
+{
+	"name": "Devcontainer fastapi-loterias-api",
+	"dockerComposeFile": "docker-compose.yml",
+	"runServices": ["mongodb"],
+	"service": "api",
+	"containerEnv": { "OMZ_PLUGINS": "command-not-found git gitfast git-prompt poetry" },
+	"workspaceFolder": "/workdir",
+
+	"features": { "ghcr.io/devcontainers/features/java:1": "17", "ghcr.io/devcontainers/features/node:1": "lts" },
+	"onCreateCommand": "sed -i \"s/^plugins=(/plugins=(${containerEnv:OMZ_PLUGINS} /\" ~/.zshrc",
+	"updateContentCommand": "poetry install --no-ansi --no-interaction --quiet &>/dev/null",
+
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"aaron-bond.better-comments",
+				"streetsidesoftware.code-spell-checker",
+				"streetsidesoftware.code-spell-checker-portuguese-brazilian",
+				"EditorConfig.EditorConfig",
+				"oderwat.indent-rainbow",
+				"charliermarsh.ruff",
+				"SonarSource.sonarlint-vscode",
+				"redhat.vscode-yaml",
+				"mongodb.mongodb-vscode",
+				"tamasfe.even-better-toml"
+			],
+			"settings": {
+				"terminal.integrated.defaultProfile.linux": "zsh",
+				"python.defaultInterpreterPath": ".venv/bin/python3"
+			}
+		}
+	}
+}

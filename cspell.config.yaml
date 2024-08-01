@@ -1,0 +1,9 @@
+version: "0.2"
+ignorePaths:
+  - .devcontainer
+  - .docker
+  - .github
+  - .venv
+  - .vscode
+words:
+  - fastapi

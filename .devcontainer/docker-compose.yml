@@ -1,0 +1,32 @@
+name: fastapi-loterias-devcontainer
+
+volumes:
+  mongodb-data:
+    name: fastapi-loterias-data
+
+services:
+  mongodb:
+    container_name: fastapi-loterias-db
+    extends:
+      file: ../.docker/compose.yml
+      service: mongo
+    environment: &env
+      MONGO_INITDB_ROOT_USERNAME: mongodb
+      MONGO_INITDB_ROOT_PASSWORD: secret
+      MONGO_INITDB_DATABASE: loterias
+    volumes:
+      - mongodb-data:/data/db
+
+  api:
+    container_name: fastapi-loterias-api
+    network_mode: service:mongodb
+    image: python:loteiras-api
+    command: sleep infinity
+    working_dir: /workdir
+    environment: *env
+    build:
+      context: .
+      args:
+        VARIANT: 3.12
+    volumes:
+      - ../:/workdir:cached
