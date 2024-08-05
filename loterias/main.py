@@ -1,9 +1,18 @@
+import logging
 from http import HTTPStatus
 
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse, JSONResponse
 
+from .constants import LOGGING_FORMAT
+from .core.database import Database
+
+logging.basicConfig(level=logging.INFO, format=LOGGING_FORMAT)
+
+
 app = FastAPI()
+app.add_event_handler('startup', Database.startup)
+app.add_event_handler('shutdown', Database.shutdown)
 
 
 @app.exception_handler(Exception)
