@@ -3,3 +3,10 @@ name: base-compose
 services:
   mongo:
     image: mongodb/mongodb-community-server:7.0-ubi9
+    expose:
+      - 27017
+  redis:
+    image: redis/redis-stack
+    expose:
+      - 6793
+      - 8001

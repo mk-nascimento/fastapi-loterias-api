@@ -1,13 +1,17 @@
 import logging
+from typing import Annotated
 
+from fastapi import Depends
 from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase
+from pymongo import ASCENDING, IndexModel
 
-from .settings import Settings
+from ..enums.lottery import Lottery
+from .settings import config
 
 logger = logging.getLogger(__name__)
 
 
-class Database:
+class LotteryDatabase:
     db: AsyncIOMotorDatabase
     client: AsyncIOMotorClient
 
@@ -20,6 +24,8 @@ class Database:
             self.client = AsyncIOMotorClient(self.uri)
             self.db = self.client.get_database(self.db_name)
 
+            await self.__create_indexes()
+
             logger.info('Database connection established.')
         except Exception as e:
             logger.exception(e)
@@ -31,5 +37,22 @@ class Database:
         else:
             logger.warning('No database connection to close.')
 
+    async def __create_indexes(self):
+        for enum in Lottery:
+            index = ('concurso', ASCENDING)
+            index_kwargs = dict(name='_concurso', unique=True)
+            await self.db[enum.value].create_indexes([IndexModel([index], **index_kwargs)])
 
-Database = Database(Settings.MONGO_URI.unicode_string(), Settings.database)
+
+Database = LotteryDatabase(config.MONGO_URI.unicode_string(), config.MONGODB_DB)
+
+
+async def get_db():
+    try:
+        await Database.startup()
+        yield Database
+    finally:
+        Database.shutdown()
+
+
+Session = Annotated[LotteryDatabase, Depends(get_db)]

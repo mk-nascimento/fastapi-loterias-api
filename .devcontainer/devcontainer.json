@@ -1,9 +1,9 @@
 {
 	"name": "Devcontainer fastapi-loterias-api",
 	"dockerComposeFile": "docker-compose.yml",
-	"runServices": ["mongodb"],
+	"runServices": ["mongodb","redis"],
 	"service": "api",
-	"containerEnv": { "OMZ_PLUGINS": "command-not-found git gitfast git-prompt poetry" },
+	"containerEnv": { "OMZ_PLUGINS": "command-not-found git gitfast git-prompt poetry", "PYTHONUNBUFFERED": "1" },
 	"workspaceFolder": "/workdir",
 
 	"features": { "ghcr.io/devcontainers/features/java:1": "17", "ghcr.io/devcontainers/features/node:1": "lts" },
@@ -22,7 +22,8 @@
 				"SonarSource.sonarlint-vscode",
 				"redhat.vscode-yaml",
 				"mongodb.mongodb-vscode",
-				"tamasfe.even-better-toml"
+				"tamasfe.even-better-toml",
+				"dotenv.dotenv-vscode"
 			],
 			"settings": {
 				"terminal.integrated.defaultProfile.linux": "zsh",
