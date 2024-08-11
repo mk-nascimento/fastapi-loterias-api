@@ -3,7 +3,7 @@ from enum import Enum
 
 class Lottery(str, Enum):
     QUINA = 'quina'
-    FEDERAL = 'federal'
+    LOTERIA_FEDERAL = 'federal'
     MEGA_SENA = 'megasena'
     DUPLA_SENA = 'duplasena'
     LOTOFACIL = 'lotofacil'

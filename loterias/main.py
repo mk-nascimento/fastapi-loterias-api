@@ -8,12 +8,14 @@ from .constants import LOGGING_FORMAT
 from .core.cache import Cache
 from .core.database import Session
 from .enums.lottery import Lottery
+from .internal import admin
 from .models import LotteryDraw
 
 logging.basicConfig(level=logging.INFO, format=LOGGING_FORMAT)
 
 
 app = FastAPI()
+app.include_router(admin.router)
 
 
 @app.exception_handler(Exception)

@@ -1,9 +1,11 @@
 from typing import Any, Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class ListaRateioPremioItem(BaseModel):
+    model_config = ConfigDict(populate_by_name=True)
+
     descricao_faixa: str = Field(..., alias='descricaoFaixa')
     faixa: int
     numero_de_ganhadores: int = Field(..., alias='numeroDeGanhadores')
@@ -11,6 +13,8 @@ class ListaRateioPremioItem(BaseModel):
 
 
 class LotteryDraw(BaseModel):
+    model_config = ConfigDict(populate_by_name=True)
+
     id: Any = Field(alias='_id', default=None)
     acumulado: bool
     data_apuracao: str = Field(..., alias='dataApuracao')

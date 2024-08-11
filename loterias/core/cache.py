@@ -1,5 +1,6 @@
 from typing import Annotated
 
+from bson import ObjectId
 from fastapi import Depends
 from redis import StrictRedis
 
@@ -13,6 +14,8 @@ class RedisCache(StrictRedis):
         super().__init__(host=config.REDIS_HOST, port=config.REDIS_PORT, decode_responses=True, **kwargs)
 
     def set_cached_draw(self, lottery: Lottery, entity: LotteryDraw):
+        if isinstance(entity.id, ObjectId):
+            entity.id = str(entity.id)
         self.set(lottery.name, entity.model_dump_json())
 
     def get_cached_draw(self, lottery: Lottery):

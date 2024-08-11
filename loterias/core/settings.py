@@ -14,7 +14,9 @@ class LotterySettings(BaseSettings):
     MONGODB_DB: str = Field(..., alias='MONGO_INITDB_DATABASE')
     ENVIRONMENT: Environment = Field(Environment.DEV, alias='ENVIRONMENT')
 
+    SECRET_TOKEN: str
     EXTERNAL_API: str
+    EXTERNAL_API_ENDPOINT: str
     REDIS_HOST: str = 'localhost'
     REDIS_PORT: int = 6379
 

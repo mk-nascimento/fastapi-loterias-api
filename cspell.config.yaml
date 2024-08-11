@@ -6,6 +6,8 @@ ignorePaths:
   - .venv
   - .vscode
 words:
+  - aiohttp
+  - apscheduler
   - fastapi
   - INITDB
   - MONGODB
