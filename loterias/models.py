@@ -1,6 +1,9 @@
 from typing import Any, Optional
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, BeforeValidator, ConfigDict, Field
+from typing_extensions import Annotated
+
+PyObjectId = Annotated[str, BeforeValidator(str)]
 
 
 class ListaRateioPremioItem(BaseModel):
@@ -15,7 +18,7 @@ class ListaRateioPremioItem(BaseModel):
 class LotteryDraw(BaseModel):
     model_config = ConfigDict(populate_by_name=True)
 
-    id: Any = Field(alias='_id', default=None)
+    id: Optional[PyObjectId] = Field(alias='_id', default=None)
     acumulado: bool
     data_apuracao: str = Field(..., alias='dataApuracao')
     data_proximo_concurso: str = Field(..., alias='dataProximoConcurso')
