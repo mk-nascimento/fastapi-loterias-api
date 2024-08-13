@@ -1,0 +1,35 @@
+name: fastapi-loterias-api
+
+networks:
+  api-cache:
+    name: fastapi-loterias-network
+
+services:
+  api:
+    container_name: fastapi-loterias-api
+    image: python:fastapi-loterias-api
+    working_dir: /workdir
+    build:
+      args:
+        VARIANT: 3.12
+      context: .
+      dockerfile: .docker/Dockerfile
+    depends_on:
+      cache:
+        condition: service_healthy
+    env_file: &env
+      - .env
+    networks: &net
+      - api-cache
+    ports:
+      - 10001:8000
+  cache:
+    container_name: fastapi-loterias-cache
+    image: redis/redis-stack-server
+    env_file: *env
+    extends:
+      file: .docker/compose.yml
+      service: redis
+    volumes:
+      - /redis:/data
+    networks: *net

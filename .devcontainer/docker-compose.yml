@@ -18,12 +18,6 @@ services:
     extends: &common-extends
       file: ../.docker/compose.yml
       service: redis
-    healthcheck: &health
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 5s
-      timeout: 5s
-      retries: 3
-      start_period: 5s
     networks:
       - redis-nw
     ports:
@@ -40,9 +34,6 @@ services:
       MONGO_INITDB_ROOT_USERNAME: mongodb
       MONGO_INITDB_ROOT_PASSWORD: secret
       MONGO_INITDB_DATABASE: loterias
-    healthcheck:
-      <<: *health
-      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
     networks:
       - mongodb-nw
     volumes:
