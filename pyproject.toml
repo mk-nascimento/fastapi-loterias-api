@@ -33,6 +33,9 @@ src = ["loterias", "tests"]
 preview = true
 select = ["E", "F", "I", "W", "PL", "PT"]
 
+[tool.ruff.lint.isort]
+split-on-trailing-comma = false
+
 [tool.ruff.format]
 preview = true
 quote-style = "single"

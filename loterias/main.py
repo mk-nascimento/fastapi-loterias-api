@@ -5,17 +5,18 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import HTMLResponse, JSONResponse
 
 from .constants import LOGGING_FORMAT
+from .core import scheduler
 from .core.cache import Cache
 from .core.database import Session
 from .enums.lottery import Lottery
-from .internal import admin
 from .models import LotteryDraw
 
 logging.basicConfig(level=logging.INFO, format=LOGGING_FORMAT)
 
 
 app = FastAPI()
-app.include_router(admin.router)
+app.add_event_handler('startup', scheduler.scheduler_startup)
+app.add_event_handler('shutdown', scheduler.scheduler_shutdown)
 
 
 @app.exception_handler(Exception)

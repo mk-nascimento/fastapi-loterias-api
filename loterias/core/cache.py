@@ -24,7 +24,7 @@ class RedisCache(StrictRedis):
         return None
 
 
-def __get_cache():
+def get_cache():
     cache = RedisCache()
     try:
         yield cache
@@ -32,4 +32,4 @@ def __get_cache():
         cache.close()
 
 
-Cache = Annotated[RedisCache, Depends(__get_cache)]
+Cache = Annotated[RedisCache, Depends(get_cache)]

@@ -2,13 +2,13 @@ from enum import Enum
 
 
 class Lottery(str, Enum):
-    QUINA = 'quina'
-    LOTERIA_FEDERAL = 'federal'
-    MEGA_SENA = 'megasena'
+    DIA_DE_SORTE = 'diadesorte'
     DUPLA_SENA = 'duplasena'
+    LOTERIA_FEDERAL = 'federal'
     LOTOFACIL = 'lotofacil'
     LOTOMANIA = 'lotomania'
+    MAIS_MILIONARIA = 'maismilionaria'
+    MEGA_SENA = 'megasena'
+    QUINA = 'quina'
     SUPER_SETE = 'supersete'
     TIMEMANIA = 'timemania'
-    DIA_DE_SORTE = 'diadesorte'
-    MAIS_MILIONARIA = 'maismilionaria'
