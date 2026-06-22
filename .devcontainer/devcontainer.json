@@ -6,7 +6,7 @@
 	"containerEnv": { "OMZ_PLUGINS": "command-not-found git gitfast git-prompt poetry", "PYTHONUNBUFFERED": "1" },
 	"workspaceFolder": "/workdir",
 
-	"features": { "ghcr.io/devcontainers/features/java:1": "17", "ghcr.io/devcontainers/features/node:1": "lts" },
+	"features": { "ghcr.io/devcontainers/features/java:1": "17", "ghcr.io/devcontainers/features/node:2": "lts" },
 	"onCreateCommand": "sed -i \"s/^plugins=(/plugins=(${containerEnv:OMZ_PLUGINS} /\" ~/.zshrc",
 	"updateContentCommand": "poetry install --no-ansi --no-interaction --quiet &>/dev/null",
 
